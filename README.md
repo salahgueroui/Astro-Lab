@@ -20,7 +20,7 @@ Astro-Lab est une application web interactive a vocation ludo-educative, destine
 Astro-Lab/
   index.html          Page principale (shell HTML + scene SVG)
   app.js              Logique applicative (scenes, navigation, audio)
-  presentation.smil   Demonstration SMIL 3.0 (4 scenes sequentielles)
+  
 ```
 
 ## Les 4 scenes

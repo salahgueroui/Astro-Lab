@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conception Multimédia Interactive (SVG)</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2a44;
+      --accent: #3b82f6;
+      --accent2: #10b981;
+      --danger: #ef4444;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    .app {
+      width: min(980px, 96vw);
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+      overflow: hidden;
+    }
+    header {
+      padding: 14px 18px;
+      background: linear-gradient(90deg, #dbeafe, #ecfeff);
+      border-bottom: 1px solid #e5e7eb;
+      font-weight: 700;
+    }
+    .stage-wrap {
+      padding: 16px;
+    }
+    svg {
+      width: 100%;
+      height: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 16px 16px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 0;
+      background: var(--accent);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      min-height: 44px;
+      min-width: 44px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(59,130,246,.25);
+    }
+    button:hover { filter: brightness(1.05); }
+    button.secondary {
+      background: #6b7280;
+      box-shadow: 0 6px 14px rgba(107,114,128,.25);
+    }
+    .hint {
+      font-size: 13px;
+      color: #4b5563;
+      padding: 0 16px 16px;
+    }
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      Projet ludo-éducatif (SMIL & SVG)
+      <span class="badge" id="sceneLabel">Scène 1/4</span>
+    </header>
+
+    <div class="stage-wrap">
+      <svg id="stage" viewBox="0 0 900 500" role="img" aria-label="Mini application interactive">
+        <defs>
+          <!-- Ciel de jour -->
+          <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+            <stop id="skyTop" offset="0%" stop-color="#c7e9ff" />
+            <stop id="skyBottom" offset="100%" stop-color="#f0fbff" />
+          </linearGradient>
+          <!-- Herbe de jour -->
+          <linearGradient id="grass" x1="0" x2="0" y1="0" y2="1">
+            <stop id="grassTop" offset="0%" stop-color="#9ae6b4" />
+            <stop id="grassBottom" offset="100%" stop-color="#48bb78" />
+          </linearGradient>
+        </defs>
+
+        <rect id="skyRect" x="0" y="0" width="900" height="350" fill="url(#sky)"></rect>
+        <rect id="grassRect" x="0" y="350" width="900" height="150" fill="url(#grass)"></rect>
+
+        <g id="content"></g>
+      </svg>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" class="secondary">◀ Précédent</button>
+      <button id="nextBtn">Suivant ▶</button>
+    </div>
+    <div class="hint">
+      Astuce: clique sur les éléments visibles (soleil, planète, réponses, etc.) pour déclencher des animations.
+    </div>
+  </div>
+
+  <!--
+    Configuration audio du projet Astro-Lab
+    =========================================
+    Les 6 fichiers MP3 sont placés dans le dossier ./audio/.
+    Chaque balise <audio> est préchargée (preload="auto") pour une lecture instantanée.
+    Si les fichiers MP3 ne sont pas disponibles, l'application utilise automatiquement
+    des sons synthétisés via l'API Web Audio (voir app.js).
+  -->
+  <audio id="welcomeSound" src="audio/welcome.mp3" preload="auto"></audio>
+  <audio id="launchSound"  src="audio/launch.mp3"  preload="auto"></audio>
+  <audio id="chimeSound"   src="audio/chime.mp3"   preload="auto"></audio>
+  <audio id="okSound"      src="audio/ok.mp3"      preload="auto"></audio>
+  <audio id="badSound"     src="audio/bad.mp3"     preload="auto"></audio>
+  <audio id="victorySound" src="audio/victory.mp3" preload="auto"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
